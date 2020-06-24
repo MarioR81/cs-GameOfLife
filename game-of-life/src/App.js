@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, userCallback, useRef } from 'react';
 import produce from 'immer';
 // import { set } from 'immer/dist/internal';
 
@@ -17,6 +17,16 @@ function App() {
 
   const [running, setRunning] = useState(false);
 
+  const runningRef = useRef();
+  runningRef.current = running
+
+  const runSimulation = userCallback(() => {
+    if (!runningRef.current) {
+      return;
+    }
+    //simulate the update, call in miliseconds
+    setTimeout(runSimulation, 1000);
+  }, [])
 
   return (
     <>
