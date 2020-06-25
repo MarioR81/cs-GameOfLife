@@ -16,6 +16,7 @@ const operations = [
   [-1, 0]
 ];
 
+
 const generateEmptyGrid = () => {
   const rows = [];
   for (let i = 0; i < numRows; i++) {
@@ -31,6 +32,11 @@ const App = () => {
   });
 
   const [running, setRunning] = useState(false);
+
+  // handleChanges(event){
+  //   const rate = 165;
+  // }
+  const rate = 170;
 
   const runningRef = useRef(running);
   runningRef.current = running;
@@ -66,7 +72,7 @@ const App = () => {
     });
 
     // make time out editable
-    setTimeout(runSimulation, 100);
+    setTimeout(runSimulation, rate);
   }, []);
 
   return (
@@ -107,6 +113,18 @@ const App = () => {
       >
         Random
       </button>
+
+      <form>
+        <label>
+          rate:
+          <input type='text' defaultValue={rate}
+          //  onChange={handleChanges}
+            /> 
+        </label>
+      </form>
+
+
+      <br/>
       <div
         style={{
           display: "grid",
