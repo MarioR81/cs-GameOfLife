@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
 
-const numRows = 50;
-const numCols = 50;
+// make variable to change these values
+const numRows = 30;
+const numCols = 40;
 
 const operations = [
   [0, 1],
@@ -42,26 +43,29 @@ const App = () => {
     setGrid(g => {
       return produce(g, gridCopy => {
         for (let i = 0; i < numRows; i++) {
-          for (let k = 0; k < numCols; k++) {
+          for (let j = 0; j < numCols; j++) {
             let neighbors = 0;
             operations.forEach(([x, y]) => {
               const newI = i + x;
-              const newK = k + y;
-              if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) {
-                neighbors += g[newI][newK];
+              const newJ = j + y;
+              // check to see if neighbors are out of bounds
+              if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
+                neighbors += g[newI][newJ];
               }
             });
 
+            // logic for the rules
             if (neighbors < 2 || neighbors > 3) {
-              gridCopy[i][k] = 0;
-            } else if (g[i][k] === 0 && neighbors === 3) {
-              gridCopy[i][k] = 1;
+              gridCopy[i][j] = 0;
+            } else if (g[i][j] === 0 && neighbors === 3) {
+              gridCopy[i][j] = 1;
             }
           }
         }
       });
     });
 
+    // make time out editable
     setTimeout(runSimulation, 100);
   }, []);
 
@@ -106,19 +110,20 @@ const App = () => {
         }}
       >
         {grid.map((rows, i) =>
-          rows.map((col, k) => (
+          rows.map((col, j) => (
             <div
-              key={`${i}-${k}`}
+              key={`${i}-${j}`}
               onClick={() => {
+                // if not running, do not allow
                 const newGrid = produce(grid, gridCopy => {
-                  gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                  gridCopy[i][j] = grid[i][j] ? 0 : 1;
                 });
                 setGrid(newGrid);
               }}
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: grid[i][k] ? "blue" : undefined,
+                backgroundColor: grid[i][j] ? "blue" : undefined,
                 border: "solid 1px black"
               }}
             />
