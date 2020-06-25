@@ -36,7 +36,7 @@ const App = () => {
   // const [color, setColor] = useState('pink')
   const [input, setInput] = useState({
     rate: 150,
-    color: 'orange',
+    color: 'black',
   })
 
   // const rate = 170;
@@ -80,10 +80,10 @@ const App = () => {
     });
 
     // make time out editable
-    console.log('test', input.rate)
-    setTimeout(runSimulation, input.rate);
-    console.log('2', input.rate)
-  }, []);
+    // console.log('test', input.rate)
+    setTimeout(runSimulation, Number(input.rate));
+    // console.log('2', input.rate)
+  }, [input]);
 
   return (
     <>
@@ -124,13 +124,19 @@ const App = () => {
         Random
       </button>
 
+{/* Create rate edit and Color edit */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input name="rate" type='number' ref={register} defaultValue={input.rate} />
+        <label>Rate in miliseconds</label>
+        <input name="rate" type='number' ref={register} defaultValue={input.rate} /><br/>
 
             <select name="color" ref={register}>
               <option value="black">Black</option>
               <option value="blue">Blue</option>
               <option value="purple">Purple</option>
+              <option value="orange">Orange</option>
+              <option value="pink">Pink</option>
+              <option value="dodgerblue">Dodger Blue</option>
+              <option value="red">Red</option>
             </select>
         <input type="submit" />
       </form>
