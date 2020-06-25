@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useRef, useImperativeHandle } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
+import { useForm } from "react-hook-form";
 
 // make variable to change these values
 const numRows = 30;
@@ -31,12 +32,19 @@ const App = () => {
     return generateEmptyGrid();
   });
 
-  const [running, setRunning] = useState(false);
+  // const [rate, setRate] = useState(165)
+  // const [color, setColor] = useState('pink')
+  const [input, setInput] = useState({
+    rate: 150,
+    color: 'orange',
+  })
 
-  const rate = 170;
-  handleChange(){
-    console.log('handle change')
-  };
+  // const rate = 170;
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => setInput(data);
+  console.log('data', input)
+
+  const [running, setRunning] = useState(false);
 
   const runningRef = useRef(running);
   runningRef.current = running;
@@ -72,7 +80,9 @@ const App = () => {
     });
 
     // make time out editable
-    setTimeout(runSimulation, rate);
+    console.log('test', input.rate)
+    setTimeout(runSimulation, input.rate);
+    console.log('2', input.rate)
   }, []);
 
   return (
@@ -114,13 +124,15 @@ const App = () => {
         Random
       </button>
 
-      <form>
-        <label>
-          rate:
-          <input type='text' defaultValue={rate}
-           onChange={handleChange}
-            /> 
-        </label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input name="rate" type='number' ref={register} defaultValue={input.rate} />
+
+            <select name="color" ref={register}>
+              <option value="black">Black</option>
+              <option value="blue">Blue</option>
+              <option value="purple">Purple</option>
+            </select>
+        <input type="submit" />
       </form>
 
 
@@ -145,7 +157,7 @@ const App = () => {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: grid[i][j] ? "blue" : undefined,
+                backgroundColor: grid[i][j] ? `${input.color}` : undefined,
                 border: "solid 1px black"
               }}
             />
