@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useImperativeHandle } from "react";
 import produce from "immer";
 
 // make variable to change these values
@@ -33,10 +33,10 @@ const App = () => {
 
   const [running, setRunning] = useState(false);
 
-  // handleChanges(event){
-  //   const rate = 165;
-  // }
   const rate = 170;
+  handleChange(){
+    console.log('handle change')
+  };
 
   const runningRef = useRef(running);
   runningRef.current = running;
@@ -118,7 +118,7 @@ const App = () => {
         <label>
           rate:
           <input type='text' defaultValue={rate}
-          //  onChange={handleChanges}
+           onChange={handleChange}
             /> 
         </label>
       </form>
