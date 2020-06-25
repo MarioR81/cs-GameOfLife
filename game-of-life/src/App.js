@@ -80,28 +80,32 @@ const App = () => {
           }
         }}
       >
-        {running ? "stop" : "start"}
+        {running ? "Stop Simulation" : "Start Simulation"}
       </button>
-      <button
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numRows; i++) {
-            rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
-            );
-          }
 
-          setGrid(rows);
-        }}
-      >
-        random
-      </button>
       <button
         onClick={() => {
           setGrid(generateEmptyGrid());
         }}
       >
         clear
+      </button>
+      <br/>
+      
+{/* Create random feature */}
+      <button
+        onClick={() => {
+          const rows = [];
+          for (let i = 0; i < numRows; i++) {
+            rows.push(
+              Array.from(Array(numCols), () => (Math.random() > 0.75 ? 1 : 0))
+            );
+          }
+
+          setGrid(rows);
+        }}
+      >
+        Random
       </button>
       <div
         style={{
