@@ -23,7 +23,6 @@ const generateEmptyGrid = () => {
   for (let i = 0; i < numRows; i++) {
     rows.push(Array.from(Array(numCols), () => 0));
   }
-
   return rows;
 };
 
@@ -32,14 +31,11 @@ const App = () => {
     return generateEmptyGrid();
   });
 
-  // const [rate, setRate] = useState(165)
-  // const [color, setColor] = useState('pink')
   const [input, setInput] = useState({
     rate: 150,
     color: 'black',
   })
 
-  // const rate = 170;
   const { register, handleSubmit } = useForm();
   const onSubmit = data => setInput(data);
   console.log('data', input)
@@ -80,9 +76,7 @@ const App = () => {
     });
 
     // make time out editable
-    // console.log('test', input.rate)
     setTimeout(runSimulation, Number(input.rate));
-    // console.log('2', input.rate)
   }, [input]);
 
   return (
@@ -106,6 +100,16 @@ const App = () => {
       >
         clear
       </button>
+
+
+{/* Resets whole page */}
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        Reset Page
+      </button>
       <br/>
       
 {/* Create random feature */}
@@ -117,7 +121,6 @@ const App = () => {
               Array.from(Array(numCols), () => (Math.random() > 0.75 ? 1 : 0))
             );
           }
-
           setGrid(rows);
         }}
       >
@@ -126,9 +129,10 @@ const App = () => {
 
 {/* Create rate edit and Color edit */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Rate in miliseconds</label>
+        <label>Rate in milliseconds: </label>
         <input name="rate" type='number' ref={register} defaultValue={input.rate} /><br/>
 
+        <label>Color: </label>
             <select name="color" ref={register}>
               <option value="black">Black</option>
               <option value="blue">Blue</option>
@@ -153,6 +157,7 @@ const App = () => {
           rows.map((col, j) => (
             <div
               key={`${i}-${j}`}
+            
               onClick={() => {
                 // if not running, do not allow
                 const newGrid = produce(grid, gridCopy => {
@@ -160,6 +165,7 @@ const App = () => {
                 });
                 setGrid(newGrid);
               }}
+
               style={{
                 width: 20,
                 height: 20,
