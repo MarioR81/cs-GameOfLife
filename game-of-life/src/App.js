@@ -176,6 +176,21 @@ const App = () => {
           ))
         )}
       </div>
+                  <div className='rules' >
+                        <h4>Game of Life: Rules</h4>
+                        <h4>
+                        1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+                        </h4><br/>
+                        <h4>
+                        2. Any live cell with two or three live neighbours lives on to the next generation.
+                        </h4><br/>
+                        <h4>
+                        3. Any live cell with more than three live neighbours dies, as if by overpopulation.
+                        </h4><br/>
+                        <h4>
+                        4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+                        </h4><br/>
+                </div>
     </>
   );
 };

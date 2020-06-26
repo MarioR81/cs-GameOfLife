@@ -13,3 +13,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.rules {
+  /* background-color: yellow; */
+  width: 87%;
+  /* border: 1px solid red; */
+
+}
